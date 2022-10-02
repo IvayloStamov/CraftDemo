@@ -1,4 +1,5 @@
-﻿using CraftDemo.Core.Github;
+﻿using CraftDemo.Core.Freshdesk;
+using CraftDemo.Core.Github;
 using Newtonsoft.Json;
 
 namespace CraftDemo
@@ -8,7 +9,7 @@ namespace CraftDemo
         static async Task Main(string[] args)
         {
             Console.WriteLine("Please, enter one of the following commands");
-            string message = ("1 - Call Github \n2- Call Octocat\n3 - Call FreshDesk\n4 - End the program");
+            string message = ("1 - Call Github \n2 - Call Octocat\n3 - Call FreshDesk\n4 - End the program");
             Console.WriteLine(message);
             string input = Console.ReadLine();
             while (true)
@@ -17,7 +18,12 @@ namespace CraftDemo
                 {
                     Console.WriteLine("Please, enter the Github username");
                     string username = Console.ReadLine();
-                    GithubCaller.CallGithubUserByUsernameAsync(username);
+                    var result = await GithubCaller.CallGithubUserByUsernameAsync(username);
+                    Console.WriteLine(result);
+                    var obj = JsonConvert.DeserializeObject<RawGithubInput>(result);
+                    Console.WriteLine(Environment.NewLine);
+                    Console.WriteLine(obj.name);
+                    Console.WriteLine(Environment.NewLine);
 
                 }
                 else if(input == "2")
@@ -26,7 +32,7 @@ namespace CraftDemo
                 }
                 else if(input == "3")
                 {
-
+                    FreshdeskCaller.CallAllFreshdeskContacts();
                 }
                 else if(input == "4")
                 {
