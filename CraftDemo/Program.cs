@@ -1,4 +1,5 @@
-﻿using CraftDemo.Core.Freshdesk;
+﻿using CraftDemo.Core.Data;
+using CraftDemo.Core.Freshdesk;
 using CraftDemo.Core.Github;
 using Newtonsoft.Json;
 
@@ -8,6 +9,8 @@ namespace CraftDemo
     {
         static async Task Main(string[] args)
         {
+            var context = new CraftDemoContext();
+
             Console.WriteLine("Please, enter one of the following commands");
             string message = ("1 - Call Github \n2 - Call Octocat\n3 - Call FreshDesk\n4 - End the program");
             Console.WriteLine(message);

@@ -2,7 +2,6 @@
 {
     public static class GithubCaller
     {
-        
         public static async Task<string> CallGithubUserByUsernameAsync(string username)
         {
             var url = $"https://api.github.com/users/{username}";
