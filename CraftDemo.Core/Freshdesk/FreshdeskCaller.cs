@@ -5,8 +5,8 @@ namespace CraftDemo.Core.Freshdesk
 {
     public static class FreshdeskCaller
     {
-        static string token = "gylgOGBRgJmQAtgeoWG8";
-        static string subdomain = "johnsmithandco";
+        static string token = "";
+        static string subdomain = "";
         public static async Task CallAllFreshdeskContacts()
         {
             var url = $"https://{subdomain}.freshdesk.com/api/v2/contacts";
