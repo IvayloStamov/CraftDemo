@@ -14,7 +14,7 @@ namespace CraftDemo.Test.Github
 
             //Act
 
-            var result = await GithubCaller.CallGithubUserByUsernameAsync(username);
+            var result = await GithubApi.GetUserByUsername(username);
 
             //Assert
            

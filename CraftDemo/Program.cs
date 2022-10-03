@@ -1,17 +1,17 @@
 ﻿using CraftDemo.Core.Data;
+using CraftDemo.Core.Data.Models;
 using CraftDemo.Core.Freshdesk;
 using CraftDemo.Core.Github;
-using Newtonsoft.Json;
 
 namespace CraftDemo
 {
     internal class Program
     {
+        
         static async Task Main(string[] args)
         {
-            var context = new CraftDemoContext();
-            //string githubToken = Console.ReadLine();
-            //string freshdeskToken = Console.ReadLine();
+            var githubApi = new GithubApi("");
+            var freshdeskApi = new FreshdeskApi("", "");
 
             string message = ("Please, enter one of the following commands!" +
                 "\n1 - Use the GithubCaller to get infromation about GithubUsers, add their " +
@@ -28,10 +28,15 @@ namespace CraftDemo
                 {
                     Console.WriteLine("Please, enter the Github username.");
                     string inputGithubUsername = Console.ReadLine();
-                    var result = await GithubCaller.CallGithubUserByUsernameAsync(inputGithubUsername);
+                    var user = await githubApi.GetUserByUsername(inputGithubUsername);
                     
-                    var githubUser = GithubConverter.ConvertRawDataIntoGithubUser(result);
-                    if(githubUser.Username == null)
+                    var githubUser = new GithubUser
+                    {
+                        Username = user.login,
+                        Name = user.name,
+                        CreationDate = user.created_at
+                    };
+                    if (githubUser.Username == null)
                     {
                         Console.WriteLine("There is no Github user with such a username.");
                         Console.WriteLine(Environment.NewLine);
@@ -40,6 +45,7 @@ namespace CraftDemo
 
                         continue;
                     }
+                    using var context = new CraftDemoContext();
 
                     var userToCheck = context.GithubUsers.FirstOrDefault(x => x.Username == inputGithubUsername);
                     if (userToCheck != null)
@@ -64,9 +70,14 @@ namespace CraftDemo
                         string inputAnswer = Console.ReadLine();
                         if (inputAnswer == "1")
                         {
-                            //int githubUserId = githubUser.Id;
-                            FreshdeskContact freshdeskContact = FreshdeskConverter.ConvertRawGithubInputIntoFreshdeskContact(result);
-                            await FreshdeskCaller.CreateNewFreshdeskContact(freshdeskContact);
+
+                            var contact = new FreshdeskContact
+                            {
+                                email = user.email,
+                                name = user.login,
+                                unique_external_id = user.id
+                            };
+                            await freshdeskApi.CreateNewContact(contact);
                             Console.WriteLine("The FreshDesk contact has been successfully created.");
                         }
                         else
@@ -77,30 +88,29 @@ namespace CraftDemo
                 }
                 else if(input == "2")
                 {
-                    await GithubCaller.GetOctocat();
+                    var result = await githubApi.GetOctocat();
+                    Console.WriteLine(result);
                 }
                 else if(input == "3")
                 {
-                    await FreshdeskCaller.CallFreshdeskSubdomain();
+                    var result = await freshdeskApi.GetAccountInformationJson();
+                    Console.WriteLine(result);
                 }
                 else if(input == "4")
                 {
                     Console.WriteLine("Please, type in the current name of the contact, that you want to update");
                     string userName = Console.ReadLine();
 
-                    var result = await FreshdeskCaller.CallFreshdeskContactByName(userName);
-                    FreshdeskSearchModel[] freshdeskSearchModel = JsonConvert.DeserializeObject<FreshdeskSearchModel[]>(result);
-                    long contactId = freshdeskSearchModel[0].id;
-                    FreshdeskContact freshdeskContact = new FreshdeskContact();
+                    var contact = await freshdeskApi.GetContactByName(userName);
+                    
                     Console.WriteLine("Please, enter the new name or reenter the current name of the contact, that will be updated:");
                     string name = Console.ReadLine();
                     Console.WriteLine("Please, enter the new email or reenter the current email of the contact, that will be updated:");
                     string email = Console.ReadLine();
 
-                    freshdeskContact.name = name;
-                    freshdeskContact.email = email;
+                    FreshdeskContact freshdeskContact = new () {name = name, email = email};
 
-                    await FreshdeskCaller.UpdateFreshdeskContact(freshdeskContact, contactId);
+                    await freshdeskApi.UpdateContact(freshdeskContact, contact.id);
                     Console.WriteLine("The contact has been updated.");
                 }
                 else if(input == "5")

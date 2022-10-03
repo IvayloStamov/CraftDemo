@@ -1,6 +1,6 @@
 ﻿namespace CraftDemo.Core.Github
 {
-    public class RawGithubInput
+    public class GithubApiUser
     {
         public string? login { get; set; }
         public int? id { get; set; }
