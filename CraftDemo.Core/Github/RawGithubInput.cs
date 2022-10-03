@@ -24,7 +24,7 @@
         public object? company { get; set; }
         public string? blog { get; set; }
         public object? location { get; set; }
-        public object? email { get; set; }
+        public string? email { get; set; } 
         public object? hireable { get; set; }
         public object? bio { get; set; }
         public object? twitter_username { get; set; }

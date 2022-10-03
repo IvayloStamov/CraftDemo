@@ -2,11 +2,10 @@
 {
     public static class GithubCaller
     {
+        static string token = "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";
         public static async Task<string> CallGithubUserByUsernameAsync(string username)
         {
             var url = $"https://api.github.com/users/{username}";
-
-            var token = "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";
 
             using var client = new HttpClient();
 
@@ -23,8 +22,6 @@
         public static async Task GetOctocat()
         {
             var url = $"https://api.github.com/octocat";
-
-            var token = "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";
 
             using var client = new HttpClient();
 

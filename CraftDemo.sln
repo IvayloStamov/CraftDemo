@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftDemo", "CraftDemo\CraftDemo.csproj", "{0320D0AA-490D-4329-B3D4-41A95D59F106}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CraftDemo", "CraftDemo\CraftDemo.csproj", "{0320D0AA-490D-4329-B3D4-41A95D59F106}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftDemo.Core", "CraftDemo.Core\CraftDemo.Core.csproj", "{9F7EBEB3-EAA0-4966-B939-359C3B1BEFB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CraftDemo.Core", "CraftDemo.Core\CraftDemo.Core.csproj", "{9F7EBEB3-EAA0-4966-B939-359C3B1BEFB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftDemo.Test", "CraftDemo.Test\CraftDemo.Test.csproj", "{4EA1FB1B-02DE-46E9-8461-2E3CA88D494C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9F7EBEB3-EAA0-4966-B939-359C3B1BEFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F7EBEB3-EAA0-4966-B939-359C3B1BEFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F7EBEB3-EAA0-4966-B939-359C3B1BEFB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EA1FB1B-02DE-46E9-8461-2E3CA88D494C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EA1FB1B-02DE-46E9-8461-2E3CA88D494C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EA1FB1B-02DE-46E9-8461-2E3CA88D494C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EA1FB1B-02DE-46E9-8461-2E3CA88D494C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
